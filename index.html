@@ -1,0 +1,36 @@
+<html>
+<head>
+<script>
+
+function enumerate() {
+	navigator.mediaDevices.enumerateDevices().then(deviceInfoSeq => {
+		log("Another enumeration");
+		deviceInfoSeq.forEach((el, ix, ar) => {
+			log("Another device: " + "deviceId: " + el.deviceId + " kind: " + el.kind + " label: " + el.label + " groupId: " + el.groupId);
+		});
+	});
+}
+
+function gum() {
+	navigator.mediaDevices.getUserMedia({audio: true}).then(ms => {
+		log("gUM called");
+	}).catch(() => {
+		log("catched at gumcalled");
+	});
+}
+
+function log(msg) {
+    const logdiv = document.getElementById("log_div");
+    logdiv.appendChild(document.createTextNode(msg));
+    logdiv.appendChild(document.createElement("br"));
+}
+
+
+</script>
+</head>
+<body>
+	<input type="button" value="getusermedia" onclick="gum()"></input>
+	<div id="log_div"></div>
+	<input type="button" value="enum" onclick="enumerate()"></input>
+</body>
+</html>
